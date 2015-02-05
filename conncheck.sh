@@ -1,8 +1,5 @@
 #!/bin/bash
 
-module="lib/$1"
-echo $$ > /tmp/lbpid
-
 function checkvnc1 {
 	netstat -np tcp | grep $1 > /dev/null
 	if [ "$(echo $?)" = "0" ]; then
@@ -24,13 +21,23 @@ if [ "$(echo $?)" = "1" ]; then
 fi	
 }
 
+getconfarg () {
+	grep -v "^#" $2 | grep $1= | cut -d'=' -f 2
+}
+
+module="lib/$1"
+echo $$ > /tmp/lbpid
+
+port=$(getconfarg PORT lib/lb.conf)
+osascript $module initialize
+
 while true;do
 	while true; do
-		checkvnc1 5900
+		checkvnc1 $port
 	done
-	osascript $module
+	osascript $module go
 	while true; do
-		checkvnc2 5900
+		checkvnc2 $port
 	done
 	osascript -e 'display dialog "The nosy librarian has left, yay!"'
 	open /tmp/lblog
