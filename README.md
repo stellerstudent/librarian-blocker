@@ -23,8 +23,3 @@ The app will constantly monitor the connections on port 5900 (VNC) and if it not
 ```
 kill $(cat /tmp/lbpid)
 ```
-
-## Roadmap
-1. Add browser decoy module that hides all apps, and opens a user-defined page in a browser that is not in use
-2. Add a config file for niceness, wireless iface name, persistence, whitelists, decoy pages, and more
-3. possibly transfer ownership of repository to a new account for anonymity if many people start using it
