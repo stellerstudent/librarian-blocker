@@ -14,8 +14,12 @@ on run argv
 	end if
 	set workingdir to POSIX path of ((path to me as text) & "::")
 	set configfile to workingdir & "lb.conf"
+	
+	#####################################################
+	
 	set decoybrowser to getconfarg("BROWSER", configfile)
 	set link to getconfarg("URL", configfile)
+	
 	if initialize then
 		set chooseargs to button returned of (display dialog "Currently application " & decoybrowser & " will open " & link & "
 Would you like to use this, or select a different browser/URL?
@@ -23,7 +27,12 @@ Would you like to use this, or select a different browser/URL?
 
 ***NOTE*** SET THE DECOY BROWSER TO A BROWSER THAT YOU WILL NOT BE USING!" with title "Use default decoy browser and URL?" buttons {"Open configuration file", "Use current options"})
 		if chooseargs is equal to "Open configuration file" then
-			do shell script "open -e -W " & configfile
+			display dialog "Click DONE when finished changing options." buttons {"Edit Config"}
+			tell application "TextEdit"
+				activate
+				open configfile
+			end tell
+			display dialog "Finished editing?" buttons {"DONE"}
 		end if
 		set decoybrowser to getconfarg("BROWSER", configfile)
 		set link to getconfarg("URL", configfile)
@@ -33,6 +42,7 @@ Would you like to use this, or select a different browser/URL?
 		tell application "System Events"
 			set visible of process decoybrowser to false
 		end tell
+		
 	else if go then
 		do shell script "osascript " & workingdir & "hideall.applescript go"
 		tell application "System Events"

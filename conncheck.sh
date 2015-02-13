@@ -9,7 +9,7 @@ THIS IS A LOG OF CONNECTIONS WHILE YOU WERE MONITORED
 THIS DATA HOLDS INFORMATION ABOUT WHO WAS WATCHING YOU!
 ******
 
-$(netstat -antp tcp)" >> /tmp/lblog
+$(netstat -antp tcp)" >> /tmp/lb.log
 		break
 	fi
 }
@@ -21,7 +21,7 @@ if [ "$(echo $?)" = "1" ]; then
 fi	
 }
 
-getconfarg () {
+function getconfarg {
 	grep -v "^#" $2 | grep $1= | cut -d'=' -f 2
 }
 
@@ -40,5 +40,5 @@ while true;do
 		checkvnc2 $port
 	done
 	osascript -e 'display dialog "The nosy librarian has left, yay!"'
-	open /tmp/lblog
+	open /tmp/lb.log
 done

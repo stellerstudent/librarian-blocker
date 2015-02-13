@@ -1,3 +1,7 @@
+on getconfarg(param, configfile)
+	set value to do shell script "grep -v '^#' " & configfile & " | grep " & param & "= | cut -d'=' -f 2"
+	return value
+end getconfarg
 on run argv
 	set initialize to false
 	set go to false
@@ -8,6 +12,9 @@ on run argv
 			set go to true
 		end if
 	end if
+	
+	#####################################################
+	
 	if go then
 		tell application "System Events" to set quitapps to name of every application process whose visible is true and name is not "Finder"
 		repeat with closeall in quitapps

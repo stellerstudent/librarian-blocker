@@ -14,6 +14,9 @@ on run argv
 	end if
 	set workingdir to POSIX path of ((path to me as text) & "::")
 	set configfile to workingdir & "lb.conf"
+	
+	#####################################################
+	
 	if go then
 		set iface to getconfarg("WIRELESS_INTERFACE", configfile)
 		do shell script "networksetup -setairportpower " & iface & " off"
