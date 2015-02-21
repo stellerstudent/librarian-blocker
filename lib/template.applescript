@@ -1,3 +1,4 @@
+#!/usr/bin/osascript
 on getconfarg(param, configfile)
 	set value to do shell script "grep -v '^#' " & configfile & " | grep " & param & "= | cut -d'=' -f 2"
 	return value

@@ -47,13 +47,13 @@ module="lib/$1"
 echo $$ > /tmp/lbpid
 
 port=$(getconfarg PORT lib/lb.conf)
-osascript $module initialize
+$module initialize
 
 while true;do
 	while true; do
 		checkvnc1 $port
 	done
-	osascript $module go
+	$module go
 	while true; do
 		checkvnc2 $port
 	done
